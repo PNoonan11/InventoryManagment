@@ -1,0 +1,12 @@
+C:\ElevenFiftyProjects\InventoryManagement\InventoryManagement\Shared\bin\Debug\net6.0\InventoryManagement.Shared.deps.json
+C:\ElevenFiftyProjects\InventoryManagement\InventoryManagement\Shared\bin\Debug\net6.0\InventoryManagement.Shared.dll
+C:\ElevenFiftyProjects\InventoryManagement\InventoryManagement\Shared\bin\Debug\net6.0\InventoryManagement.Shared.pdb
+C:\ElevenFiftyProjects\InventoryManagement\InventoryManagement\Shared\obj\Debug\net6.0\InventoryManagement.Shared.csproj.AssemblyReference.cache
+C:\ElevenFiftyProjects\InventoryManagement\InventoryManagement\Shared\obj\Debug\net6.0\InventoryManagement.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\ElevenFiftyProjects\InventoryManagement\InventoryManagement\Shared\obj\Debug\net6.0\InventoryManagement.Shared.AssemblyInfoInputs.cache
+C:\ElevenFiftyProjects\InventoryManagement\InventoryManagement\Shared\obj\Debug\net6.0\InventoryManagement.Shared.AssemblyInfo.cs
+C:\ElevenFiftyProjects\InventoryManagement\InventoryManagement\Shared\obj\Debug\net6.0\InventoryManagement.Shared.csproj.CoreCompileInputs.cache
+C:\ElevenFiftyProjects\InventoryManagement\InventoryManagement\Shared\obj\Debug\net6.0\InventoryManagement.Shared.dll
+C:\ElevenFiftyProjects\InventoryManagement\InventoryManagement\Shared\obj\Debug\net6.0\refint\InventoryManagement.Shared.dll
+C:\ElevenFiftyProjects\InventoryManagement\InventoryManagement\Shared\obj\Debug\net6.0\InventoryManagement.Shared.pdb
+C:\ElevenFiftyProjects\InventoryManagement\InventoryManagement\Shared\obj\Debug\net6.0\ref\InventoryManagement.Shared.dll

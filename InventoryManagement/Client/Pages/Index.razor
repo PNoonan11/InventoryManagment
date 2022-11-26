@@ -1,0 +1,23 @@
+﻿@page "/"
+@inject NavigationManager _navigationManager;
+@using System.Security.Claims
+@inject AuthenticationStateProvider _authenticationStateProvider
+
+<PageTitle>Inventory Manager</PageTitle>
+
+<h1>Inventory Management</h1>
+<hr />
+Select a category to continue....
+
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await _authenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        if (!user.Identity.IsAuthenticated)
+        {
+            _navigationManager.NavigateTo("authentication/login", false);
+        }
+    }
+}

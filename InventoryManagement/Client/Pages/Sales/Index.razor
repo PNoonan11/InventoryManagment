@@ -1,0 +1,58 @@
+﻿@page "/Sales/"
+@using InventoryManagement.Shared.Models.Sales
+@inject HttpClient Http
+
+<h3>Sales</h3>
+<a href=@($"/sales/create") class="btn btn-outline-primary">Enter a Sale</a>
+
+@if (saleList == null)
+{
+    <p><em>Loading....</em></p>
+}
+else 
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Product Name</th>
+                <th>Product Id</th>
+                <th>Quantity Sold</th>
+                <th>Location Sold From</th>
+                <th>Date of Sale</th>
+                <th>Customer Sold To</th>
+                <th>Sales Person Id</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (SaleListItem item in saleList)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.ProductSold</td>
+                    <td>@item.ProductId</td>
+                    <td>@item.ProductQuantitySold</td>
+                    <td>@item.LocationSoldFrom</td>
+                    <td>@item.DateOfSale</td>
+                    <td>@item.CustomerSoldTo</td>
+                    <td>@item.SoldByUserId</td>
+                    
+                    <a href=@($"sales/{item.Id}") class="btn btn-outline-primary">Details</a>
+                    <a href=@($"/sales/edit/{item.Id}") class="btn btn-outline-primary">Edit</a>
+                    <a href=@($"/sales/delete/{item.Id}") class="btn btn-outline-danger">Delete</a>
+                </tr>
+            }
+            @code {
+            private List<SaleListItem> saleList;
+            protected override async Task OnInitializedAsync()
+            {
+                saleList = await Http.GetFromJsonAsync<List<SaleListItem>>("api/Sale");
+            }
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+}

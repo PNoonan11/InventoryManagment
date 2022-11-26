@@ -1,0 +1,135 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = browser
+build_property.EnableSingleFileAnalyzer = 
+build_property.EnableTrimAnalyzer = true
+build_property.IncludeAllContentForSelfExtract = 
+build_property.RootNamespace = InventoryManagement.Client
+build_property.RootNamespace = InventoryManagement.Client
+build_property.ProjectDir = C:\ElevenFiftyProjects\InventoryManagement\InventoryManagement\Client\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\ElevenFiftyProjects\InventoryManagement\InventoryManagement\Client
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Pages/Authentication.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aGVudGljYXRpb24ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Pages/Customers/Create.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VzdG9tZXJzXENyZWF0ZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Pages/Customers/Delete.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VzdG9tZXJzXERlbGV0ZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Pages/Customers/Details.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VzdG9tZXJzXERldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Pages/Customers/Edit.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VzdG9tZXJzXEVkaXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Pages/Customers/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VzdG9tZXJzXEluZGV4LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Pages/Locations/Create.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9jYXRpb25zXENyZWF0ZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Pages/Locations/Delete.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9jYXRpb25zXERlbGV0ZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Pages/Locations/Details.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9jYXRpb25zXERldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Pages/Locations/Edit.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9jYXRpb25zXEVkaXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Pages/Locations/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9jYXRpb25zXEluZGV4LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Pages/Products/Create.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdHNcQ3JlYXRlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Pages/Products/Delete.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdHNcRGVsZXRlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Pages/Products/Details.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdHNcRGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Pages/Products/Edit.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdHNcRWRpdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Pages/Products/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdHNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Pages/Sales/Create.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNcQ3JlYXRlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Pages/Sales/Delete.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNcRGVsZXRlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Pages/Sales/Details.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNcRGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Pages/Sales/Edit.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNcRWRpdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Pages/Sales/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Shared/LoginDisplay.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXExvZ2luRGlzcGxheS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Shared/RedirectToLogin.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFJlZGlyZWN0VG9Mb2dpbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-djub5lrlx4
+
+[C:/ElevenFiftyProjects/InventoryManagement/InventoryManagement/Client/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-7nqg3mr4mg

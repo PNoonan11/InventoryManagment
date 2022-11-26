@@ -1,0 +1,60 @@
+﻿@page "/products/create"
+
+@inject HttpClient http
+@using InventoryManagement.Shared.Models.Products
+@using System.Net.Http.Json
+@using InventoryManagement.Shared.Models.Locations
+@using Microsoft.AspNetCore.Authorization
+@inject NavigationManager navigation
+<h3>Create</h3>
+@if (errorMessage != null)
+{
+    <h5 class="text-danger">@errorMessage</h5>
+}
+<div class="container">
+    
+          <EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+               <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <label>Product Name</label>
+            <InputText class="form-control" @bind-Value="model.ProductName" />
+            <label>Product Description</label>
+            <InputText class="form-control" @bind-Value="model.ProductDescription"/>
+            <label>Stock Number</label>
+            <InputNumber class="form-control" @bind-Value="model.StockNumber" />
+            <label>Product Location</label>
+            <InputSelect class="form-control" @bind-Value="model.ProductLocation" >
+            @foreach (LocationListItem loc in locationList)
+            {
+                <option value="@loc.Id">@loc.Location</option>
+            }
+            </InputSelect>
+            <label>Quantity</label>
+            <InputNumber class="form-control" @bind-Value="model.Quantity" />            
+            <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    private ProductCreate model = new();
+    private IEnumerable<LocationListItem> locationList;
+    private string errorMessage;
+    protected override async Task OnInitializedAsync()
+    {
+        locationList = await http.GetFromJsonAsync<IEnumerable<LocationListItem>>("/api/location");
+    }
+    private async void HandleSubmit()
+    {
+        var createRes = await http.PostAsJsonAsync<ProductCreate>("/api/product", model);
+        if (createRes.IsSuccessStatusCode)
+        {
+            navigation.NavigateTo("/products");
+        }
+        else
+        {
+            errorMessage = "Could not enter your product right now, Please try again later.";
+        }
+    }
+}

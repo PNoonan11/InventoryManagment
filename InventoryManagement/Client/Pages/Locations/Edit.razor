@@ -1,0 +1,49 @@
+﻿@page "/locations/edit/{Id:int}"
+@using InventoryManagement.Shared.Models.Locations
+@using InventoryManagement.Shared.Models.Products
+@inject HttpClient http
+@inject NavigationManager navigation
+
+<h3>Edit Location: @model.Id</h3>
+@if (errorMessage != null)
+{
+    <h5 class="text-danger">@errorMessage</h5>
+}
+<div class="container">
+
+    <EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <label>Location Name:</label>
+            <InputText class="form-control" @bind-Value="model.Location" />
+            <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
+        </div>
+    </EditForm>
+</div>
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    private LocationEdit model { get; set; }
+    private IEnumerable<ProductListItem> productsInLocationList { get; set; }
+    private string errorMessage { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        model = await http.GetFromJsonAsync<LocationEdit>($"/api/location/{Id}");
+        productsInLocationList = await http.GetFromJsonAsync<IEnumerable<ProductListItem>>("/api/product/");
+    }
+    private async void HandleSubmit()
+    {
+        var createRes = await http.PutAsJsonAsync<LocationEdit>($"/api/location/edit/{Id}", model);
+        if (createRes.IsSuccessStatusCode)
+        {
+            navigation.NavigateTo($"/products/{Id}");
+        }
+        else
+        {
+            errorMessage = "Could not edit your location right now. Please try again later.";
+        }
+    }
+}

@@ -1,0 +1,74 @@
+﻿@page "/customer/delete/{Id:int}"
+@using InventoryManagement.Shared.Models.Customers
+@using Microsoft.AspNetCore.Authorization
+@using System.Net.Http.Json
+@attribute [Authorize]
+@inject HttpClient http
+@inject NavigationManager navigation
+
+<h3>Delete Customer </h3>
+@if (Message != null)
+{
+    <h2 class="text-danger">@Message</h2>
+}
+@if (Customers != null)
+{
+    <div class="container">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <span>Customer #@Customers.Id</span>
+                <span class="text-muted"><strong>@Customers.FullName</strong></span>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">@Customers.FirstName @Customers.LastName</h4>
+               @* <p class="card-text">Items Purchased: @Customers.ListItemsPurchased</p>
+                @foreach (var item in Customers.ListItemsPurchased)
+                {
+                    <p class="card-text">@item.ProductName</p>
+                }*@
+            </div>
+            <div class="card-footer text-muted d-flex justify-content-between">
+                <span class="text-left">Email: @Customers.Email</span>               
+            </div>
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            <div class="text-center justify-content-between w-50">
+                <a href=@($"/products/edit/{Id}") class="btn btn-outline-primary">Back to Index</a>
+                <a href="#" @onclick="HandleClick" class="btn btn-danger text-white">Delete Customer</a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <p>Loading...</p>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    public CustomerDetail Customers { get; set; }
+    public string Message { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Customers = await http.GetFromJsonAsync<CustomerDetail>($"/api/customer/{Id}");
+    }
+    private async void HandleClick()
+    {
+        // call a Delete request on our API
+        var deleteRes = await http.DeleteAsync($"/api/customer/{Id}");
+
+        // check to make sure the call was a success
+        // if successful, navigate back to the Index.razor component
+        if (deleteRes.IsSuccessStatusCode)
+        {
+            navigation.NavigateTo("/customers");
+        }
+        // if not successful, give the user an error message
+        else
+        {
+            Message = "Failed to delete your customer.";
+        }
+    }
+}

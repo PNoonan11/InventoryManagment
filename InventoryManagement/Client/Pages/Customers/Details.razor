@@ -1,0 +1,65 @@
+﻿@page "/customers/{Id:int}"
+@using InventoryManagement.Shared.Models.Customers
+@using InventoryManagement.Shared.Models.Products
+@using Microsoft.AspNetCore.Authorization
+@using System.Net.Http.Json
+@attribute [Authorize]
+@inject HttpClient http
+<h3>Customer #@Id</h3>
+@if (Customer != null)
+{
+    <div class="container">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <span>@Customer.FullName</span>
+                <span class="text-muted"><strong>@Customer.Email</strong></span>
+            </div>
+            <div class="card-body">
+                <h6 class="card-title"><strong>First Name:</strong> @Customer.FirstName</h6>
+                <h6 class="card-title"><strong>Last Name:</strong> @Customer.LastName</h6>
+                @*<p class="card-text"><strong>Items Purchased:</strong> </p>
+                @if (Customer. == null)
+                {
+                    @foreach (var item in Customer.)
+                    {
+                        <p class="card-text">@item.ProductName</p>
+                    }
+                }
+                else
+                {
+                    <p class="card-text">Customer has not made a purchase. </p>
+                }
+                *@
+            </div>
+            
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            <div class="text-center justify-content-between w-25">
+                <a href=@($"/customers/edit/{Id}") class="btn btn-outline-primary">Edit</a>
+                <a href=@($"/customers/delete/{Id}") class="btn btn-outline-danger">Delete</a>
+                <hr />
+                <a href="/products">Back to Customer Index</a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <p>Loading...</p>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    public int ItemsPurchased { get; set; }
+    public CustomerDetail Customer { get; set; }
+    public ProductDetail item { get; set; }
+    
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        Customer = await http.GetFromJsonAsync<CustomerDetail>($"/api/customer/{Id}");
+        
+    }
+}

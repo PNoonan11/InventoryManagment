@@ -1,0 +1,63 @@
+﻿@page "/products/edit/{Id:int}"
+@using InventoryManagement.Shared.Models.Locations
+@using InventoryManagement.Shared.Models.Products
+@inject HttpClient http
+@inject NavigationManager navigation
+
+<h3>Edit Product: @model.ProductName</h3>
+@if (ErrorMessage != null)
+{
+    <h5 class="text-danger">@ErrorMessage</h5>
+}
+<div class="container">
+
+    <EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <label>Product Name</label>
+            <InputText class="form-control" @bind-Value="model.ProductName" />
+            <label>Product Description</label>
+            <InputText class="form-control" @bind-Value="model.ProductDescription" />
+            <label>Stock Number</label>
+            <InputNumber class="form-control" @bind-Value="model.StockNumber" />
+            <label>Product Location</label>
+            <InputSelect class="form-control" @bind-Value="model.ProductLocation">
+                @foreach (var loc in locationList)
+                {
+                    <option value="@loc.Id">@loc.Location</option>
+                }
+            </InputSelect>
+            <label>Quantity</label>
+            <InputNumber class="form-control" @bind-Value="model.Quantity" />          
+            
+            <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
+        </div>
+    </EditForm>
+</div>
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    private ProductEdit model { get; set; }
+    private IEnumerable<LocationListItem> locationList { get; set; }
+    private string ErrorMessage { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        model = await http.GetFromJsonAsync<ProductEdit>($"/api/product/{Id}");
+        locationList = await http.GetFromJsonAsync<IEnumerable<LocationListItem>>("/api/location/");
+    }
+    private async void HandleSubmit()
+    {
+        var createRes = await http.PutAsJsonAsync<ProductEdit>($"/api/product/edit/{Id}", model);
+        if (createRes.IsSuccessStatusCode)
+        {
+            navigation.NavigateTo($"/products/{Id}");
+        }
+        else
+        {
+            ErrorMessage = "Could not edit your product right now. Please try again later.";
+        }
+    }
+}

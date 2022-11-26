@@ -1,0 +1,54 @@
+﻿@page "/customers/edit/{Id:int}"
+@using InventoryManagement.Shared.Models.Products
+@using InventoryManagement.Shared.Models.Customers
+@inject HttpClient http
+@inject NavigationManager navigation
+
+<h3>Edit Customer: @model.Id</h3>
+
+@if (errorMessage != null)
+{
+    <h5 class="text-danger">@errorMessage</h5>
+}
+<div class="container">
+
+    <EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <label>Firstname:</label>
+            <InputText class="form-control" @bind-Value="model.FirstName" />
+            <label>Lastname:</label>
+            <InputText class="form-control" @bind-Value="model.LastName" />
+            <label>Email:</label>
+            <InputText class="form-control" @bind-Value="model.Email" />
+            <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
+        </div>
+    </EditForm>
+</div>
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    private CustomerEdit model { get; set; }
+    private IEnumerable<ProductListItem> Products { get; set; }
+    private string errorMessage { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        model = await http.GetFromJsonAsync<CustomerEdit>($"/api/customer/{Id}");
+        Products = await http.GetFromJsonAsync<IEnumerable<ProductListItem>>("/api/product/");
+    }
+    private async void HandleSubmit()
+    {
+        var createRes = await http.PutAsJsonAsync<CustomerEdit>($"/api/customer/edit/{Id}", model);
+        if (createRes.IsSuccessStatusCode)
+        {
+            navigation.NavigateTo($"/customers/{Id}");
+        }
+        else
+        {
+            errorMessage = "Could not edit the selected customer right now. Please try again later.";
+        }
+    }
+}

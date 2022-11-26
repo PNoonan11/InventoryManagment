@@ -1,0 +1,53 @@
+﻿@page "/sales/edit/{Id:int}"
+@using InventoryManagement.Shared.Models.Locations
+@using InventoryManagement.Shared.Models.Sales
+@inject HttpClient http
+@inject NavigationManager navigation
+
+<h3>Edit Sale: @model.Id</h3>
+@if (errorMessage != null)
+{
+    <h5 class="text-danger">@errorMessage</h5>
+}
+<div class="container">
+    <EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <label>Product Sold</label>
+            <InputText class="form-control" @bind-Value="model.ProductSold" />
+            <label>Product Id</label>
+            <InputNumber class="form-control" @bind-Value="model.ProductId" />
+            <label>Quantity Sold</label>
+            <InputNumber class="form-control" @bind-Value="model.ProductQuantitySold" />
+            <label>Product Location</label>
+            <InputNumber class="form-control" @bind-Value="model.LocationSoldFrom" />
+            <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    private SaleEdit model { get; set; }
+    private IEnumerable<LocationListItem> Locations { get; set; }
+    private string errorMessage { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        model = await http.GetFromJsonAsync<SaleEdit>($"/api/sale/{Id}");
+        Locations = await http.GetFromJsonAsync<IEnumerable<LocationListItem>>("/api/location/");
+    }
+    private async void HandleSubmit()
+    {
+        var createRes = await http.PutAsJsonAsync<SaleEdit>($"/api/sale/edit/{Id}", model);
+        if (createRes.IsSuccessStatusCode)
+        {
+            navigation.NavigateTo($"/sales/{Id}");
+        }
+        else
+        {
+            errorMessage = "Could not edit your sale right now. Please try again later.";
+        }
+    }
+}

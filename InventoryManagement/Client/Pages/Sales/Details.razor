@@ -1,0 +1,52 @@
+﻿@page "/sales/{Id:int}"
+@using InventoryManagement.Shared.Models.Sales
+@using Microsoft.AspNetCore.Authorization
+@using System.Net.Http.Json
+@attribute [Authorize]
+@inject HttpClient http
+<h3>Sale #@Id</h3>
+@if (Sale != null)
+{
+    <div class="container">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <span>Sale Id #@Sale.Id</span>
+                <span class="text-muted"><strong>@Sale.ProductSold</strong></span>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">Product: @Sale.ProductSold</h4>
+                <p class="card-text">Quantity Sold: @Sale.ProductQuantitySold</p>
+                
+               <p class="card-text">Customer sold to:@Sale.CustomerSoldTo</p>
+                <p class="card-text">Sold by: @Sale.SoldByUserId</p>
+            </div>
+            <div class="card-footer text-muted d-flex justify-content-between">
+               
+            </div>
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            <div class="text-center justify-content-between w-25">
+                <a href=@($"/sales/edit/{Id}") class="btn btn-outline-primary">Edit</a>
+                <a href=@($"/sales/delete/{Id}") class="btn btn-danger text-white">Delete</a>
+                <hr />
+                <a href="/sales">Back to Sales Index</a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <p>Loading...</p>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    public SaleDetail Sale { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        Sale = await http.GetFromJsonAsync<SaleDetail>($"/api/sale/{Id}");
+    }
+}

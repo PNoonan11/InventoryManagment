@@ -1,0 +1,55 @@
+﻿@page "/Products/"
+@using InventoryManagement.Shared.Models.Products
+@inject HttpClient Http
+
+<h3>Products</h3>
+<a href="/products/create">Enter A Product.</a>
+@if (productList == null)
+{
+    <p><em>Loading....</em></p>
+}
+else 
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Product Name</th>
+                <th>Product Description</th>
+                <th>Stock Number</th>
+                <th>Location</th>
+                <th>Quantity</th>
+                <th>Date Received</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ProductListItem item in productList)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.ProductName</td>
+                    <td>@item.ProductDescription</td>
+                    <td>@item.StockNumber</td>
+                    <td>@item.ProductLocation</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.DateReceived</td>
+                   
+                    <a href=@($"products/{item.Id}") class="btn btn-outline-primary">Details</a>
+                    <a href=@($"/products/edit/{item.Id}") class="btn btn-outline-primary">Edit</a>
+                    <a href=@($"/products/delete/{item.Id}") class="btn btn-outline-danger">Delete</a>
+                </tr>
+            }
+            @code {
+            private List<ProductListItem> productList;
+            protected override async Task OnInitializedAsync()
+            {
+                productList = await Http.GetFromJsonAsync<List<ProductListItem>>("/api/Product");
+            }
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+}

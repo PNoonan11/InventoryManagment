@@ -1,0 +1,104 @@
+﻿@page "/sales/create"
+@attribute [Authorize]
+@inject HttpClient http
+@using InventoryManagement.Shared.Models.Sales
+@using System.Net.Http.Json
+@using InventoryManagement.Shared.Models.Locations
+@using InventoryManagement.Shared.Models.Products
+@using InventoryManagement.Shared.Models.Customers
+@using Microsoft.AspNetCore.Authorization
+@inject NavigationManager navigation
+@inject AuthenticationStateProvider AuthenticationStateProvider
+<h3>Create Sale</h3>
+@if (errorMessage != null)
+ {
+    <h5 class="text-danger">@errorMessage</h5>
+ }
+<div class="container">         
+          <EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+               <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <label>Product Sold</label>
+            <InputText class="form-control" @bind-Value="model.ProductSold" />
+            <label>Product Id</label>
+            <InputSelect class="form-control" @bind-Value="model.ProductId" >
+                @foreach (ProductListItem pro in productList)
+                {
+                    <option value="@pro.Id">@pro.ProductName</option>
+                }
+                </InputSelect>
+            <label>Quantity Sold</label>
+            <InputNumber class="form-control" @bind-Value="model.ProductQuantitySold" />
+            <label>Product Location</label>
+            <InputSelect class="form-control" @bind-Value="model.LocationSoldFrom" >
+            @foreach (LocationListItem loc in locationList)
+            {
+                <option value="@loc.Id">@loc.Location</option>
+            }
+            </InputSelect>
+            <label>Customer Sold To</label>
+            <InputSelect class="form-control" @bind-Value="model.CustomerSoldTo" >
+                @foreach (CustomerListItem cust in customerList)
+                {
+                   <option value="@cust.Id">@cust.FullName</option>
+                }
+            </InputSelect>
+            @if (model != null)
+            {
+                model.SoldByUserId = _userId;
+            }
+            <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    private SaleCreate model = new();
+    private IEnumerable<LocationListItem> locationList;
+    private IEnumerable<CustomerListItem> customerList;
+    private IEnumerable<ProductListItem> productList;
+    private string errorMessage;
+    private string _userId;  
+    private string _authMessage;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await GetClaimsPrincipalData();
+        await base.OnParametersSetAsync();
+    }
+
+    private async Task GetClaimsPrincipalData()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+
+            _userId = user.FindFirst(c => c.Type == "sub")?.Value;
+        }
+        else
+        {
+            _authMessage = "The user is NOT authenticated.";
+        }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        locationList = await http.GetFromJsonAsync<IEnumerable<LocationListItem>>("/api/location/");
+        customerList = await http.GetFromJsonAsync<IEnumerable<CustomerListItem>>("/api/customer/");
+        productList = await http.GetFromJsonAsync<IEnumerable<ProductListItem>>("/api/product/");
+    }
+    private async void HandleSubmit()
+    {
+        var createRes = await http.PostAsJsonAsync<SaleCreate>("/api/sale", model);
+        if (createRes.IsSuccessStatusCode)
+        {
+            navigation.NavigateTo("/sales");
+        }
+        else
+        {
+            errorMessage = "Could not enter your sale right now, Please try again later.";
+        }
+    }
+}

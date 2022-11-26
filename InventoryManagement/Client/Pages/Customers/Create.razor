@@ -1,0 +1,51 @@
+﻿@page "/customers/create"
+@attribute [Authorize]
+@inject HttpClient http
+@using InventoryManagement.Shared.Models.Customers
+@using System.Net.Http.Json
+@using InventoryManagement.Shared.Models.Locations
+@using Microsoft.AspNetCore.Authorization
+@inject NavigationManager navigation
+<h3>Create</h3>
+@if (errorMessage != null)
+{
+    <h5 class="text-danger">@errorMessage</h5>
+}
+<div class="container">
+    
+          <EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+               <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <label>Customer's Firstname:</label>
+            <InputText class="form-control" @bind-Value="model.FirstName" />
+            <label>Customer's Lastname:</label>
+            <InputText class="form-control" @bind-Value="model.LastName" />
+            <label>Customer's Email:</label>
+            <InputText class="form-control" @bind-Value="model.Email" />    
+            <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
+
+            
+            
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    private CustomerCreate model = new();
+    
+    private string errorMessage;
+ 
+    private async void HandleSubmit()
+    {
+        var createRes = await http.PostAsJsonAsync<CustomerCreate>("/api/Customer", model);
+        if (createRes.IsSuccessStatusCode)
+        {
+            navigation.NavigateTo("/customers");
+        }
+        else
+        {
+            errorMessage = "Could not enter your customer right now, Please try again later.";
+        }
+    }
+}

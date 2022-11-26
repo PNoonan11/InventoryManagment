@@ -1,0 +1,50 @@
+﻿@page "/locations/{Id:int}"
+@using InventoryManagement.Shared.Models.Locations
+@using Microsoft.AspNetCore.Authorization
+@using System.Net.Http.Json
+@attribute [Authorize]
+@inject HttpClient http
+
+@if (Location != null)
+{
+    <div class="container">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <span>Location #@Location.Id</span>
+                <span class="text-muted"><strong>@Location.Location</strong></span>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">Number of Products In Location:@Location.CountOfProducts</h4>
+                <p class="card-text"></p>
+            </div>
+            <div class="card-footer text-muted d-flex justify-content-between">
+                <span class="text-left">Product In Location:</span>
+               
+            </div>
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            <div class="text-center justify-content-between w-25">
+                <a href=@($"/locations/edit/{Id}") class="btn btn-outline-primary">Edit</a>
+                <a href=@($"/locations/delete/{Id}") class="btn btn-outline-danger">Delete</a>
+                <hr />
+                <a href="/locations">Back to Product Index</a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <p>Loading...</p>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    public LocationDetail Location { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        Location = await http.GetFromJsonAsync<LocationDetail>($"/api/location/{Id}");
+    }
+}

@@ -1,0 +1,61 @@
+﻿@page "/products/{Id:int}"
+@using InventoryManagement.Shared.Models.Products
+@using InventoryManagement.Shared.Models.Locations
+@using Microsoft.AspNetCore.Authorization
+@using System.Net.Http.Json
+@attribute [Authorize]
+@inject HttpClient http
+<h3>Product #@Id</h3>
+@if (Product != null)
+{
+    <div class="container">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <span>Product Id #@Product.Id</span>
+                <span class="text-muted"><strong>Location: @Location.Location</strong></span>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">@Product.ProductName</h4>
+                <p class="card-text">@Product.ProductDescription</p>
+            </div>
+            <div class="card-footer text-muted d-flex justify-content-between">
+               @* <span class="text-left">Product Last Received: @Product.DateReceived</span>
+                @if (Product.DateLastSold != null)
+                {
+                    <span class="text-right">Product Last Sold: @Product.DateLastSold</span>
+                }
+                else
+                {
+                    <span class="text-right">Product has not been sold yet...</span>
+                }*@
+            </div>
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            <div class="text-center justify-content-between w-25">
+                <a href=@($"/products/edit/{Id}") class="btn btn-outline-primary">Edit</a>
+                <a href=@($"/products/delete/{Id}") class="btn btn-outline-danger">Delete</a>
+                <hr />
+                <a href="/products">Back to Product Index</a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <p>Loading...</p>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    public ProductDetail Product { get; set; }
+    public LocationDetail Location { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        Product = await http.GetFromJsonAsync<ProductDetail>($"/api/product/{Id}");
+       Location = await http.GetFromJsonAsync<LocationDetail>($"/api/location/{Product.ProductLocation}");
+    }
+}

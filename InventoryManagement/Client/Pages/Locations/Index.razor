@@ -1,0 +1,49 @@
+﻿@page "/Locations/"
+@using InventoryManagement.Shared.Models.Locations
+@using Microsoft.AspNetCore.Authorization
+@inject HttpClient http
+<h3>Location Index</h3>
+<a href=@($"/locations/create") class="btn btn-outline-primary">Create A Location</a>
+
+@if (locationList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Location</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (LocationListItem locations in locationList)
+                {
+                <tr>
+                    <td><strong>@locations.Id</strong></td>
+        <td><strong>@locations.Location</strong></td>
+       
+            
+            
+                    <a href=@($"/locations/{locations.Id}") class="btn btn-outline-primary">Details</a>
+                    <a href=@($"/locations/edit/{locations.Id}") class="btn btn-outline-primary">Edit</a>
+                    <a href=@($"/locations/delete/{locations.Id}") class="btn btn-outline-danger">Delete</a>
+                </tr>
+                }
+                
+       
+@code {
+    private List<LocationListItem> locationList;
+    protected override async Task OnInitializedAsync()
+    {
+                locationList = await http.GetFromJsonAsync<List<LocationListItem>>("api/Location");
+    }
+}
+     </tbody>
+        
+        
+    </table>
+}
